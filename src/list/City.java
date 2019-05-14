@@ -1,4 +1,4 @@
-package ooplist;
+package list;
 
 public class City{
     protected String name;

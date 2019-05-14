@@ -12,33 +12,40 @@ import org.json.JSONObject;
  */
 
 public class Weather{
+    
+    private static String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18";
 
-    public float getRequest(String city) throws Exception{
+    public float askTemp(String city) throws Exception{
 
-        String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18",
-               urlString = "http://api.openweathermap.org/data/2.5/weather?q=",
-               units = "&units=metric";
-        float response;
+        String
+            apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=",
+            units = "&units=metric";
         
-        URL url = new URL(urlString + city + units + apiKey);
+        return parseTemp(sendGET(apiUrl + city + units + apiKey));
+    }
+    
+    private String sendGET(String request) throws Exception{
+        URL url = new URL(request);
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
 
         if(conn.getResponseCode() != 200)
-            throw new RuntimeException("Failed getting weather\n"+
+            throw new Exception("Failed getting weather\n"+
             "HTTP error code: " + conn.getResponseCode());
 
         BufferedReader input =
-                new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-        JSONObject toparse = new JSONObject(input.readLine());
-
-        response = toparse.getJSONObject("main").getFloat("temp");
-
+            new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        
         conn.disconnect();
+        
+        return input.readLine();
+    }
+    
+    private float parseTemp(String json){
+        JSONObject toparse = new JSONObject(json);
 
-        return response;
+        return toparse.getJSONObject("main").getFloat("temp");
     }
 }
