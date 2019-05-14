@@ -1,4 +1,4 @@
-package ooplist;
+package test;
 
 public class Test {
 

@@ -1,11 +1,10 @@
-
-package LisOOp;
+package ooplist;
 
 public class City{
     protected String name;
-    protected String contry;
+    protected String country;
     protected String continent;
-    protected int temperature;
+    protected float temperature;
     protected String information;
     protected String path;
     
@@ -13,10 +12,10 @@ public class City{
         
     }
 
-    public City(String name, String contry, String continent, int temperature, 
+    public City(String name, String country, String continent, float temperature, 
                 String information, String path) {
         this.name = name;
-        this.contry = contry;
+        this.country = country;
         this.continent = continent;
         this.temperature = temperature;
         this.information = information;
@@ -32,11 +31,11 @@ public class City{
     }
     
     public void setContry(String contry) {
-        this.contry = contry;
+        this.country = contry;
     }
     
     public String getContry(){
-        return contry;
+        return country;
     }
     
     public void setContinent(String continent) {
@@ -47,11 +46,11 @@ public class City{
         return continent;
     }
     
-    public void setTemperature(int temperature) {
+    public void setTemperature(float temperature) {
         this.temperature = temperature;
     }
     
-    public int getTemperature(){
+    public float getTemperature(){
         return temperature;
     }
 
