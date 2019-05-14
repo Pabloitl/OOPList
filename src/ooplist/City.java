@@ -1,5 +1,5 @@
 
-package ooplist;
+package LisOOp;
 
 public class City{
     protected String name;
