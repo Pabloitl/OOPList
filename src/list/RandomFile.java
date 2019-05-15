@@ -1,13 +1,12 @@
 package list;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class RandomFile {
     
-    public static String   PATH = "src/data/",
-                    COUNTRIES = PATH + "countries.data";
+    public static final String   PATH = "src/data/",
+                           COUNTRIES = PATH + "countries.data";
 
     private RandomAccessFile file;
     
@@ -18,29 +17,31 @@ public class RandomFile {
         return true;
     }
     
-    public void write(Object data){
-        try {
-            write(data, file.getFilePointer());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage().toString());
-        }
+    public void write(Object data) throws Exception{
+        write(data, file.getFilePointer());
     }
     
-    public void write(Object data, long pointer){
-        if(data instanceof String){
-            try{
-                file.writeUTF((String) data);
-                System.out.println("String");
-            }catch(IOException ex){}
-        }else if(data instanceof Float){
-            try{
-                file.writeFloat((Float) data);
-                System.out.println("Float");
-            }catch (IOException ex){}
-        }
+    public void write(Object data, long pointer) throws Exception{
+        if(data instanceof String)
+            file.write(((String) data).getBytes());
+        else if(data instanceof Float)
+            file.writeFloat((Float) data);
     }
     
-    public boolean close() throws IOException{
+    public String read(long pointer, int length) throws Exception{
+        byte[] temp = new byte[length];
+            file.seek(pointer);
+            file.read(temp);
+
+        return new String(temp);
+    }
+    
+    public float readFloat(long pointer) throws Exception{
+        file.seek(pointer);
+        return file.readFloat();
+    }
+    
+    public boolean close() throws Exception{
         if(file == null) return false;
         
         file.close();

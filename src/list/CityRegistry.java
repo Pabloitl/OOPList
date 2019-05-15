@@ -1,7 +1,5 @@
 package list;
 
-import java.io.FileNotFoundException;
-
 public class CityRegistry extends City{
     
 //  name          50 * 2
@@ -13,7 +11,7 @@ public class CityRegistry extends City{
 //=========================    
 //  Total         464
     
-    private int DIM = 234;
+    private final int DIM = 234;
 
     public CityRegistry(){}
     
@@ -24,12 +22,16 @@ public class CityRegistry extends City{
     }
 
     public void write(RandomFile f){
-        f.write(stretch(name, 100));
-        f.write(stretch(country, 60));
-        f.write(stretch(continent, 40));
-        f.write(temperature);
-        f.write(stretch(information, 60));
-        f.write(stretch(path, 60));
+        try{
+            f.write(stretch(name, 100));
+            f.write(stretch(country, 60));
+            f.write(stretch(continent, 40));
+            f.write(temperature);
+            f.write(stretch(information, 60));
+            f.write(stretch(path, 60));
+        }catch(Exception e){
+            System.out.println(e.getStackTrace());
+        }
     }
 
 //    public String read(RandomFile f, int row){
