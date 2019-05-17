@@ -5,8 +5,8 @@ import java.io.RandomAccessFile;
 
 public class RandomFile {
     
-    public static final String   PATH = "src/data/",
-                           COUNTRIES = PATH + "countries.data";
+    public static final String PATH = "src/data/",
+                               COUNTRIES = PATH + "countries.data";
 
     private RandomAccessFile file;
     

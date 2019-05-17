@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 public class Display {
     
-    public void select(){
+    public static City showCountries(){
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Ciudades por visitar");
         JLabel city  = new JLabel("Seleccione");
@@ -41,9 +41,10 @@ public class Display {
                                         panel, 
                                         "Ciudades por visitar", 
                                         JOptionPane.DEFAULT_OPTION);
+        return null;
     }
     
-    public void city(City c){
+    public static void showCity(City c){
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Ciudades por visitar");
         JLabel lCity  = new JLabel("Ciudad");
@@ -116,7 +117,7 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
     }
     
-    public void message(String s){
+    public static void showMessage(String s){
         JOptionPane.showMessageDialog(null, s);
     }
 }

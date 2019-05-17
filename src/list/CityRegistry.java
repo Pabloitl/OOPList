@@ -11,12 +11,23 @@ public class CityRegistry extends City{
 //=========================
 //  Total         234
 
-    private final int DIM = 234;
+    private final int   DIM                 = 234,
+                        NAME_LENGTH         = 50,
+                        COUNTRY_LENGTH      = 30,
+                        CONTINENT_LENGTH    = 20,
+                        TEMPERATURE_LENGTH  = 4,
+                        INFORMATION_LENGTH  = 100,
+                        PATH_LENGTH         = 30;
 
     public CityRegistry(){}
+    
+    public CityRegistry(City c){
+        super(c.getName(), c.getCountry(), c.getContinent(), c.getTemperature(),
+                c.getInformation(), c.getPath());
+    }
 
     public CityRegistry(String name, String country, String continent,
-                            float temperature, String description, String img){
+                          float temperature, String description, String img){
 
         super(name, country, continent, temperature, description, img);
     }
@@ -30,8 +41,7 @@ public class CityRegistry extends City{
             f.write(stretch(information, 100));
             f.write(stretch(path, 30));
         }catch(Exception e){
-            //TODO
-            //Display.showMessage(e.getMessage());
+            Display.showMessage(e.getMessage());
         }
     }
 
@@ -44,8 +54,7 @@ public class CityRegistry extends City{
             information = f.read(Integer.toUnsignedLong(row * DIM + 104), 100);
             path        = f.read(Integer.toUnsignedLong(row * DIM + 204), 30);
         }catch(Exception e){
-            //TODO
-            //Display.showMessage("Error reading" + e.getMessage());
+            Display.showMessage("Error reading" + e.getMessage());
         }
 
     }
