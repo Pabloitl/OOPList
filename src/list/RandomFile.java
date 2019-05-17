@@ -17,21 +17,29 @@ public class RandomFile {
         return true;
     }
     
-    public void write(Object data) throws Exception{
+    public void write(String data) throws Exception{
         write(data, file.getFilePointer());
     }
     
-    public void write(Object data, long pointer) throws Exception{
-        if(data instanceof String)
-            file.write(((String) data).getBytes());
-        else if(data instanceof Float)
-            file.writeFloat((Float) data);
+    public void write(String data, long pointer) throws Exception{
+        file.seek(pointer);
+        file.write(data.getBytes());
+    }
+    
+    public void write(float data) throws Exception{
+        write(data, file.getFilePointer());
+    }
+    
+    public void write(float data, long pointer) throws Exception{
+        file.seek(pointer);
+        file.writeFloat(data);
     }
     
     public String read(long pointer, int length) throws Exception{
         byte[] temp = new byte[length];
-            file.seek(pointer);
-            file.read(temp);
+        
+        file.seek(pointer);
+        file.read(temp);
 
         return new String(temp);
     }

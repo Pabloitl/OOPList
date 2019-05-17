@@ -30,11 +30,11 @@ public class City{
         return name;
     }
     
-    public void setContry(String contry) {
-        this.country = contry;
+    public void setCountry(String country) {
+        this.country = country;
     }
     
-    public String getContry(){
+    public String getCountry(){
         return country;
     }
     

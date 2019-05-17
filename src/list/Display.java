@@ -52,7 +52,7 @@ public class Display {
         JLabel lTemperature = new JLabel(String.valueOf("Temperatura"));
         JLabel lInformation = new JLabel("Información");
         JLabel eCity  = new JLabel(c.getName());
-        JLabel eCountry = new JLabel(c.getContry());
+        JLabel eCountry = new JLabel(c.getCountry());
         JLabel eContinent = new JLabel(c.getContinent());
         JLabel eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
         JLabel eInformation = new JLabel(c.getInformation());
