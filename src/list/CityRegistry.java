@@ -34,27 +34,29 @@ public class CityRegistry extends City{
 
     public void write(RandomFile f){
         try{
-            f.write(stretch(name, 50));
-            f.write(stretch(country, 30));
-            f.write(stretch(continent, 20));
+            f.write(stretch(name, NAME_LENGTH));
+            f.write(stretch(country, COUNTRY_LENGTH));
+            f.write(stretch(continent, CONTINENT_LENGTH));
             f.write(temperature);
-            f.write(stretch(information, 100));
-            f.write(stretch(path, 30));
+            f.write(stretch(information, INFORMATION_LENGTH));
+            f.write(stretch(path, PATH_LENGTH));
         }catch(Exception e){
             Display.showMessage(e.getMessage());
         }
     }
 
     public void read(RandomFile f, int row){
+        int counter = 0;
+        
         try{
-            name        = f.read(Integer.toUnsignedLong(row * DIM), 50);
-            country     = f.read(Integer.toUnsignedLong(row * DIM + 50), 30);
-            continent   = f.read(Integer.toUnsignedLong(row * DIM + 80), 20);
-            temperature = f.readFloat(row * DIM + 100);
-            information = f.read(Integer.toUnsignedLong(row * DIM + 104), 100);
-            path        = f.read(Integer.toUnsignedLong(row * DIM + 204), 30);
+            name        = f.read(Integer.toUnsignedLong(row * DIM), counter += NAME_LENGTH);
+            country     = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += COUNTRY_LENGTH);
+            continent   = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += CONTINENT_LENGTH);
+            temperature = f.readFloat(row * DIM + counter); counter += TEMPERATURE_LENGTH;
+            information = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += INFORMATION_LENGTH);
+            path        = f.read(Integer.toUnsignedLong(row * DIM + counter), PATH_LENGTH);
         }catch(Exception e){
-            Display.showMessage("Error reading" + e.getMessage());
+            Display.showMessage("Error reading " + e.getMessage());
         }
 
     }
@@ -63,6 +65,37 @@ public class CityRegistry extends City{
         StringBuilder sb = new StringBuilder(s);
         sb.setLength(length);
         return sb.toString();
+    }
+    
+    public void append(RandomFile f){
+        try{
+            f.setSeek(-1);
+            write(f);
+        }catch(Exception e){
+            Display.showMessage(e.getMessage());
+        }
+    }
+    
+    public void update(RandomFile f, City c){
+        long row = new CityRegistry(c).getRow(f);
+        
+        try{
+            f.setSeek(row * DIM);
+            write(f);
+        }catch(Exception e){
+            Display.showMessage(e.getMessage());
+        }
+    }
+    
+    private int getRow(RandomFile f){
+        try{
+        for(int i = 0; i < f.getLength(); i += DIM)
+            if(f.read(Integer.toUnsignedLong(i * DIM), NAME_LENGTH).equals(name))
+                return i;
+        }catch(Exception e){
+            Display.showMessage(e.getMessage());
+        }
+        return -1;
     }
 
     @Override

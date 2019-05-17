@@ -1,6 +1,7 @@
 package list;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class RandomFile {
@@ -9,6 +10,17 @@ public class RandomFile {
                                COUNTRIES = PATH + "countries.data";
 
     private RandomAccessFile file;
+    
+    public void setSeek(long pointer) throws IOException{
+        if(pointer < 0)
+            file.seek(file.length() - 1);
+        else
+            file.seek(pointer);
+    }
+    
+    public long getLength() throws Exception{
+        return file.length();
+    }
     
     public boolean open(String path) throws FileNotFoundException{
         if(file != null) return false;

@@ -1,21 +1,25 @@
 package process;
 
-import list.Display;
+import static list.Display.*;
+import static process.Process.*;
 
 public class Menu {
 
-//    public int prompt(String...args){
-//        return Display.showOptions(args);
-//    }
-//
-//    public void filter(int opt){
-//        switch(opt){
-//            case 0:
-//                register(Process.prompt(true));
-//            case 1:
-//                Process.prompt(false);
-//            case 2:
-//                //Edit
-//        }
-//    }
+    public static int prompt(){
+        return showOptions("Register", "View", "Edit");
+    }
+
+    public static void filter(int opt){
+        switch(opt){
+            case 0:
+                //Add
+                register(showList());
+            case 1:
+                //View
+                showCity(showCountries());
+            case 2:
+                //Edit
+                edit(showEdit(showCountries()));
+        }
+    }
 }

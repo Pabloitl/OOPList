@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 public class Display {
     
-    public static City showCountries(){
+    public static City showCountries(City...args){
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Ciudades por visitar");
         JLabel city  = new JLabel("Seleccione");
@@ -118,6 +118,15 @@ public class Display {
     }
     
     public static void showMessage(String s){
+        UIManager.put("OptionPane.minimumSize", new Dimension(0, 0));
         JOptionPane.showMessageDialog(null, s);
+    }
+    
+    public static int showOptions(String...args){
+        return 0;
+    }
+    
+    public static City showEdit(City c){
+        return null;
     }
 }
