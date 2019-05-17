@@ -115,4 +115,8 @@ public class Display {
                                         "Ciudades por visitar", 
                                         JOptionPane.DEFAULT_OPTION);
     }
+    
+    public void message(String s){
+        JOptionPane.showMessageDialog(null, s);
+    }
 }
