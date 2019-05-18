@@ -15,7 +15,7 @@ public class Weather{
     
     private static String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18";
 
-    public float askTemp(String city) throws Exception{
+    public static float askTemp(String city) throws Exception{
 
         String
             apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=",
@@ -24,7 +24,7 @@ public class Weather{
         return parseTemp(sendGET(apiUrl + city + units + apiKey));
     }
     
-    private String sendGET(String request) throws Exception{
+    private static String sendGET(String request) throws Exception{
         URL url = new URL(request);
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -43,7 +43,7 @@ public class Weather{
         return input.readLine();
     }
     
-    private float parseTemp(String json){
+    private static float parseTemp(String json){
         JSONObject toparse = new JSONObject(json);
 
         return toparse.getJSONObject("main").getFloat("temp");

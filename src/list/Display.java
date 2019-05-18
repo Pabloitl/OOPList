@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import weatherapi.Weather;
 
 public class Display {
     
@@ -183,8 +184,15 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent,information,path));
         
+        float temperatureAPI;
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
+        
         return new City(city.getText(), country.getText(), continent.getText(), 
-                        0f, information.getText(), path.getText());
+                        temperatureAPI, information.getText(), path.getText());
     }
     
     public static String selectCity(String...args){
@@ -226,7 +234,13 @@ public class Display {
         JLabel eCity  = new JLabel(c.getName());
         JLabel eCountry = new JLabel(c.getCountry());
         JLabel eContinent = new JLabel(c.getContinent());
-        JLabel eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
+        JLabel eTemperature;
+        try{
+            eTemperature = new JLabel(Weather.askTemp(c.getName()) + "°");
+        }catch(Exception e){
+            eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
+            showMessage("Error retrieving temperature");
+        }
         JLabel eInformation = new JLabel(c.getInformation());
         JLabel icon = new JLabel();
         ImageIcon imag = new ImageIcon(new ImageIcon(c.getPath())
