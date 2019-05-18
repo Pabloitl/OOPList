@@ -1,5 +1,9 @@
 package list;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import static list.Display.showMessage;
+
 public class CityRegistry extends City{
 
 //  name          50
@@ -96,6 +100,27 @@ public class CityRegistry extends City{
             Display.showMessage(e.getMessage());
         }
         return -1;
+    }
+    
+    
+    private ArrayList<String> loadCities(RandomFile f){
+        ArrayList<String> buff = new ArrayList();
+        
+        try{
+            for(int i = 0; i * DIM < f.getLength(); i++){
+                buff.add(f.read(i * DIM, NAME_LENGTH));
+            }
+        }catch(Exception e){
+            showMessage(e.getMessage());
+        }
+        
+        return buff;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException {
+        RandomFile file = new RandomFile();
+        file.open(RandomFile.COUNTRIES);
+        System.out.println(new CityRegistry().loadCities(file));
     }
 
     @Override

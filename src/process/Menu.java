@@ -1,6 +1,9 @@
 package process;
 
+import java.util.ArrayList;
+import list.City;
 import static list.Display.*;
+import list.RandomFile;
 import static process.Process.*;
 
 public class Menu {
@@ -13,13 +16,16 @@ public class Menu {
         switch(opt){
             case 0:
                 //Add
-                register(showList());
+                register(showCountries());
+                break;
             case 1:
                 //View
                 showCity(showCountries());
+                break;
             case 2:
                 //Edit
                 edit(showEdit(showCountries()));
+                break;
         }
     }
 }

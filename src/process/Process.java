@@ -31,8 +31,4 @@ public class Process {
             Display.showMessage(e.getMessage());
         }
     }
-
-    public static City showList(){
-        return Display.showCountries();
-    }
 }
