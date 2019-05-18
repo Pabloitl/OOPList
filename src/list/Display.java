@@ -182,9 +182,9 @@ public class Display {
         JOptionPane.showMessageDialog(null, panel, "Editar registro de ciudad", 
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent,information,path));
+        
         return new City(city.getText(), country.getText(), continent.getText(), 
-                        0f, 
-                        information.getText(), path.getText());
+                        0f, information.getText(), path.getText());
     }
     
     public static String selectCity(String...args){

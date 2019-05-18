@@ -18,6 +18,15 @@ public class RandomFile {
             file.seek(pointer);
     }
     
+    public long getSeek(){
+        try {
+            return file.getFilePointer();
+        } catch (IOException ex) {
+            Display.showMessage("Error retrieving file pointer" + ex.getMessage());
+        }
+        return -1;
+    }
+    
     public long getLength() throws Exception{
         return file.length();
     }

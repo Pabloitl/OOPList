@@ -1,9 +1,6 @@
 package list;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static list.Display.showMessage;
 
 public class CityRegistry extends City{
@@ -40,7 +37,7 @@ public class CityRegistry extends City{
 
     public void write(RandomFile f){
         try{
-            System.out.println("Writting: " + toString());
+            System.out.println("ToWrite: "+toString());
             f.write(stretch(name, NAME_LENGTH));
             f.write(stretch(country, COUNTRY_LENGTH));
             f.write(stretch(continent, CONTINENT_LENGTH));
@@ -95,10 +92,11 @@ public class CityRegistry extends City{
     
     public void update(RandomFile f, City c){
         long row = getRow(f);
-        if(row < 0) return;
+        if(row < 0) Display.showMessage("row -");
         System.out.println("row: " + row);
         try{
             f.setSeek(row * DIM);
+            
             new CityRegistry(c).write(f);
         }catch(Exception e){
             Display.showMessage("Failed updating" + e.getMessage());
@@ -107,13 +105,11 @@ public class CityRegistry extends City{
     
     private int getRow(RandomFile f){
         try{
-            String s;
-            for(int i = 0; i < f.getLength(); i += DIM)
-                if((s = f.read(Integer.toUnsignedLong(i * DIM), NAME_LENGTH)).contains(name)){
-                    System.out.println("output (row): " + s);
-                    System.out.println(name + " " + s);
+            ArrayList<String> c = loadCities(f);
+            for(int i = 0; i < c.size(); i++){
+                if(c.get(i).equals(name))
                     return i;
-                }
+            }
         }catch(Exception e){
             Display.showMessage("Failes getting row" + e.getMessage());
         }
