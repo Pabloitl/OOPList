@@ -6,7 +6,7 @@ import list.Display;
 public class TestD {
 
     public static void main(String[] args) {
-        Display.showCountries();
+        Display.selectCity();
         Display.showCity(new City());
     }
     

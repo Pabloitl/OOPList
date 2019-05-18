@@ -21,7 +21,7 @@ public class Process {
 
     public static void edit(City c){
         RandomFile f = new RandomFile();
-        City c2 = Display.showEdit(c);
+        City c2 = Display.editRegistry(c);
 
         try{
             if(f.open(RandomFile.PATH))
