@@ -110,7 +110,6 @@ public class Display {
             String c = j.getText();
             
             //c es vacío o c es de longitud cero
-            
             if(c == null || c.isEmpty()) 
                 return false;
         }
@@ -142,7 +141,7 @@ public class Display {
         city.setText(c.getName());
         country.setText(c.getCountry());
         continent.setText(c.getContinent());
-        temperature.setEditable(false);
+        temperature.setEditable(true);
         information.setText(c.getInformation());
         path.setText(c.getPath());
         
@@ -182,13 +181,13 @@ public class Display {
         do{
         JOptionPane.showMessageDialog(null, panel, "Editar registro de ciudad", 
                                         JOptionPane.DEFAULT_OPTION);
-        }while(!campos(city, country, continent, temperature,information,path));
+        }while(!campos(city, country, continent,information,path));
         return new City(city.getText(), country.getText(), continent.getText(), 
-                        Float.parseFloat(temperature.getText()), 
+                        0f, 
                         information.getText(), path.getText());
     }
     
-    public static City selectCity(City...args){
+    public static String selectCity(String...args){
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Ciudades por visitar");
         JLabel city  = new JLabel("Seleccione");
@@ -212,9 +211,8 @@ public class Display {
         panel.add(icon);
         panel.setVisible(true);
         
-        JOptionPane.showInputDialog(null, panel, "Ciudades por visitar", 
-                                    -1, null, args, null);
-        return null;
+        return JOptionPane.showInputDialog(null, panel, "Ciudades por visitar", 
+                                    -1, null, args, null).toString();
     }
     
     public static void showCity(City c){

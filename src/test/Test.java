@@ -5,6 +5,7 @@ import static process.Menu.*;
 public class Test {
 
     public static void main(String[] args) {
-        filter(prompt());
+        while(true)
+            filter(prompt());
     }  
 }

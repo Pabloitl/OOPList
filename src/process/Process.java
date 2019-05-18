@@ -11,7 +11,7 @@ public class Process {
         RandomFile f = new RandomFile();
 
         try {            
-            if(f.open(RandomFile.PATH))
+            if(f.open(RandomFile.COUNTRIES))
                 new CityRegistry(c).append(f);
             f.close();
         }catch (Exception ex) {
@@ -22,9 +22,9 @@ public class Process {
     public static void edit(City c){
         RandomFile f = new RandomFile();
         City c2 = Display.editRegistry(c);
-
+        
         try{
-            if(f.open(RandomFile.PATH))
+            if(f.open(RandomFile.COUNTRIES))
                 new CityRegistry(c).update(f, c2);
             f.close();
         }catch(Exception e){

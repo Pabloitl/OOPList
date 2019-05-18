@@ -1,6 +1,10 @@
 package process;
 
+import java.util.ArrayList;
+import list.City;
+import list.CityRegistry;
 import static list.Display.*;
+import list.RandomFile;
 import static process.Process.*;
 
 public class Menu {
@@ -13,16 +17,37 @@ public class Menu {
         switch(opt){
             case 0:
                 //Add
-                register(selectCity());
+                register(registry());
                 break;
             case 1:
                 //View
-                showCity(selectCity());
+                showCity(askCity());
                 break;
             case 2:
                 //Edit
-                edit(editRegistry(selectCity()));
+                edit(askCity());
                 break;
         }
+    }
+    
+    private static City askCity(){
+        String[] arr = getCities();
+        CityRegistry c = new CityRegistry();
+        c.search(selectCity(arr));
+        
+        return c;
+    }
+    
+    private static String[] getCities(){
+        RandomFile f = new RandomFile();
+        ArrayList<String> options = new ArrayList();
+        try{
+            f.open(RandomFile.COUNTRIES);
+            options = new CityRegistry().loadCities(f);
+            f.close();
+        }catch(Exception e){
+            showMessage(e.getMessage());
+        }
+        return options.toArray(new String[options.size()]);
     }
 }

@@ -2,6 +2,8 @@ package list;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static list.Display.showMessage;
 
 public class CityRegistry extends City{
@@ -38,6 +40,7 @@ public class CityRegistry extends City{
 
     public void write(RandomFile f){
         try{
+            System.out.println("Writting: " + toString());
             f.write(stretch(name, NAME_LENGTH));
             f.write(stretch(country, COUNTRY_LENGTH));
             f.write(stretch(continent, CONTINENT_LENGTH));
@@ -53,11 +56,21 @@ public class CityRegistry extends City{
         int counter = 0;
         
         try{
-            name        = f.read(Integer.toUnsignedLong(row * DIM), counter += NAME_LENGTH);
-            country     = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += COUNTRY_LENGTH);
-            continent   = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += CONTINENT_LENGTH);
-            temperature = f.readFloat(row * DIM + counter); counter += TEMPERATURE_LENGTH;
-            information = f.read(Integer.toUnsignedLong(row * DIM + counter), counter += INFORMATION_LENGTH);
+            name        = f.read(Integer.toUnsignedLong(row * DIM), NAME_LENGTH);
+            counter += NAME_LENGTH;
+            
+            country     = f.read(Integer.toUnsignedLong(row * DIM + counter), COUNTRY_LENGTH);
+            counter += COUNTRY_LENGTH;
+            
+            continent   = f.read(Integer.toUnsignedLong(row * DIM + counter), CONTINENT_LENGTH);
+            counter += CONTINENT_LENGTH;
+            
+            temperature = f.readFloat(row * DIM + counter);
+            counter += TEMPERATURE_LENGTH;
+            
+            information = f.read(Integer.toUnsignedLong(row * DIM + counter), INFORMATION_LENGTH);
+            counter += INFORMATION_LENGTH;
+            
             path        = f.read(Integer.toUnsignedLong(row * DIM + counter), PATH_LENGTH);
         }catch(Exception e){
             Display.showMessage("Error reading " + e.getMessage());
@@ -76,34 +89,39 @@ public class CityRegistry extends City{
             f.setSeek(-1);
             write(f);
         }catch(Exception e){
-            Display.showMessage(e.getMessage());
+            Display.showMessage("Failes appending" + e.getMessage());
         }
     }
     
     public void update(RandomFile f, City c){
-        long row = new CityRegistry(c).getRow(f);
-        
+        long row = getRow(f);
+        if(row < 0) return;
+        System.out.println("row: " + row);
         try{
             f.setSeek(row * DIM);
-            write(f);
+            new CityRegistry(c).write(f);
         }catch(Exception e){
-            Display.showMessage(e.getMessage());
+            Display.showMessage("Failed updating" + e.getMessage());
         }
     }
     
     private int getRow(RandomFile f){
         try{
-        for(int i = 0; i < f.getLength(); i += DIM)
-            if(f.read(Integer.toUnsignedLong(i * DIM), NAME_LENGTH).equals(name))
-                return i;
+            String s;
+            for(int i = 0; i < f.getLength(); i += DIM)
+                if((s = f.read(Integer.toUnsignedLong(i * DIM), NAME_LENGTH)).contains(name)){
+                    System.out.println("output (row): " + s);
+                    System.out.println(name + " " + s);
+                    return i;
+                }
         }catch(Exception e){
-            Display.showMessage(e.getMessage());
+            Display.showMessage("Failes getting row" + e.getMessage());
         }
         return -1;
     }
     
     
-    private ArrayList<String> loadCities(RandomFile f){
+    public ArrayList<String> loadCities(RandomFile f){
         ArrayList<String> buff = new ArrayList();
         
         try{
@@ -117,10 +135,20 @@ public class CityRegistry extends City{
         return buff;
     }
     
-    public static void main(String[] args) throws FileNotFoundException {
-        RandomFile file = new RandomFile();
-        file.open(RandomFile.COUNTRIES);
-        System.out.println(new CityRegistry().loadCities(file));
+    public void search(String name){
+        RandomFile f = new RandomFile();
+        try {
+            if(f.open(RandomFile.COUNTRIES)){
+                for(int i = 0; i * DIM < f.getLength(); i++){
+                    read(f, i);
+                    if(this.name.equals(name))
+                        return;
+                }
+            }
+            f.close();
+        } catch (Exception e) {
+            Display.showMessage("Failed searching " + e.getMessage());
+        }
     }
 
     @Override

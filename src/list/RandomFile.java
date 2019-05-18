@@ -12,9 +12,9 @@ public class RandomFile {
     private RandomAccessFile file;
     
     public void setSeek(long pointer) throws IOException{
-        if(pointer < 0)
-            file.seek(file.length() - 1);
-        else
+        if(pointer < 0){
+            file.seek(file.length());
+        }else
             file.seek(pointer);
     }
     
