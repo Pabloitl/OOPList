@@ -231,15 +231,16 @@ public class Display {
         JLabel lContinent = new JLabel("Continente");
         JLabel lTemperature = new JLabel("Temperatura");
         JLabel lInformation = new JLabel("Información");
-        JLabel eCity  = new JLabel(c.getName());
+        String city = c.getName();
+        JLabel eCity  = new JLabel(city);
         JLabel eCountry = new JLabel(c.getCountry());
         JLabel eContinent = new JLabel(c.getContinent());
         JLabel eTemperature;
         try{
-            eTemperature = new JLabel(Weather.askTemp(c.getName()) + "°");
+            eTemperature = new JLabel(Weather.askTemp(city.replace("\0", "")) + "°");
         }catch(Exception e){
             eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
-            showMessage("Error retrieving temperature");
+            showMessage("Error retrieving temperature" + e.getMessage());
         }
         JLabel eInformation = new JLabel(c.getInformation());
         JLabel icon = new JLabel();

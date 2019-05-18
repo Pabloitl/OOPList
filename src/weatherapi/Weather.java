@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 public class Weather{
     
-    private static String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18";
+    private static final String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18";
 
     public static float askTemp(String city) throws Exception{
 
@@ -38,9 +38,11 @@ public class Weather{
         BufferedReader input =
             new BufferedReader(new InputStreamReader(conn.getInputStream()));
         
+        String response = input.readLine();
+        
         conn.disconnect();
         
-        return input.readLine();
+        return response;
     }
     
     private static float parseTemp(String json){
