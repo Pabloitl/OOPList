@@ -20,7 +20,7 @@ public class Display {
         JLabel icon  = new JLabel();
         ImageIcon imag = new ImageIcon(new ImageIcon("src/data/montreal.jpg")
                 .getImage().getScaledInstance(480, 350, Image.SCALE_SMOOTH));
-        String [] option = {"Añadir ciudad" , "Mostrar ciudad"};
+        String [] option = {"Añadir ciudad" , "Mostrar ciudad","Editar ciudad"};
         
         UIManager.put("OptionPane.minimumSize", new Dimension(500, 430));
         
@@ -212,10 +212,8 @@ public class Display {
         panel.add(icon);
         panel.setVisible(true);
         
-        JOptionPane.showMessageDialog(null, 
-                                        panel, 
-                                        "Ciudades por visitar", 
-                                        JOptionPane.DEFAULT_OPTION);
+        JOptionPane.showInputDialog(null, panel, "Ciudades por visitar", 
+                                    -1, null, args, null);
         return null;
     }
     
