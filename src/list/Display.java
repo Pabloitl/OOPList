@@ -141,7 +141,7 @@ public class Display {
         city.setText(c.getName());
         country.setText(c.getCountry());
         continent.setText(c.getContinent());
-        temperature.setEditable(true);
+        continent.setEditable(true);
         information.setText(c.getInformation());
         path.setText(c.getPath());
         

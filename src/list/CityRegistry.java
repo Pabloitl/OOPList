@@ -37,7 +37,6 @@ public class CityRegistry extends City{
 
     public void write(RandomFile f){
         try{
-            System.out.println("ToWrite: "+toString());
             f.write(stretch(name, NAME_LENGTH));
             f.write(stretch(country, COUNTRY_LENGTH));
             f.write(stretch(continent, CONTINENT_LENGTH));
@@ -96,7 +95,6 @@ public class CityRegistry extends City{
         System.out.println("row: " + row);
         try{
             f.setSeek(row * DIM);
-            
             new CityRegistry(c).write(f);
         }catch(Exception e){
             Display.showMessage("Failed updating" + e.getMessage());
