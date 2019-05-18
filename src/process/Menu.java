@@ -13,10 +13,10 @@ public class Menu {
         switch(opt){
             case 0:
                 //Add
-                register(showList());
+                register(registry());
             case 1:
                 //View
-                showCity(selectCity());
+                showCity(showList());
             case 2:
                 //Edit
                 edit(editRegistry(selectCity()));
