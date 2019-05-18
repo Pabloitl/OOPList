@@ -16,10 +16,10 @@ public class Menu {
                 register(showList());
             case 1:
                 //View
-                showCity(showCountries());
+                showCity(selectCity());
             case 2:
                 //Edit
-                edit(showEdit(showCountries()));
+                edit(editRegistry(selectCity()));
         }
     }
 }
