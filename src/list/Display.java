@@ -195,17 +195,17 @@ public class Display {
         JLabel city  = new JLabel("Seleccione");
         JLabel icon  = new JLabel();
         ImageIcon imag = new ImageIcon(new ImageIcon("src/data/teotihuacán.png")
-                .getImage().getScaledInstance(380, 350, Image.SCALE_SMOOTH));
+                .getImage().getScaledInstance(490, 300, Image.SCALE_SMOOTH));
         
-        UIManager.put("OptionPane.minimumSize", new Dimension(550, 480));
+        UIManager.put("OptionPane.minimumSize", new Dimension(510, 460));
         
         title.setFont(new Font("Castellar", Font.BOLD, 30));
-        title.setBounds(50, 0, 500, 40);
+        title.setBounds(25, 0, 500, 40);
         
-        city.setBounds(395, 100, 100, 20);
+        city.setBounds(0, 350, 100, 20);
         
         icon.setIcon(imag);
-        icon.setBounds(0, 60, 400, 350);
+        icon.setBounds(0, 50, 490, 300);
         
         panel.setLayout(null);
         panel.add(title);
