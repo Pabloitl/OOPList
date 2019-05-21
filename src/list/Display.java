@@ -96,12 +96,12 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent, information,path));
         
-        float temperatureAPI = 0;
-//        try {
-//            temperatureAPI = Weather.askTemp(city.getText());
-//        } catch (Exception ex) {
-//            temperatureAPI = 0;
-//        }
+        float temperatureAPI;
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
         
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -132,7 +132,7 @@ public class Display {
         JLabel lInformation = new JLabel("Información");
         JLabel lPath = new JLabel("Ruta de imagen");
         JLabel icon = new JLabel();
-        ImageIcon imag = new ImageIcon(new ImageIcon("src/data/catedral.jpg")
+        ImageIcon imag = new ImageIcon(new ImageIcon("src/data/quebec.jpg")
                 .getImage().getScaledInstance(225, 230, Image.SCALE_SMOOTH));
         
         UIManager.put("OptionPane.minimumSize", new Dimension(600, 250));
@@ -177,13 +177,13 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent, information, path));
         
-        float temperatureAPI = 0;
+        float temperatureAPI;
         
-//        try {
-//            temperatureAPI = Weather.askTemp(city.getText());
-//        } catch (Exception ex) {
-//            temperatureAPI = 0;
-//        }
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
 //        
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -229,13 +229,13 @@ public class Display {
         JLabel eCity  = new JLabel(city);
         JLabel eCountry = new JLabel(c.getCountry().replace("\0", ""));
         JLabel eContinent = new JLabel(c.getContinent().replace("\0", ""));
-        JLabel eTemperature = new JLabel("0");
-//        try{
-//            eTemperature = new JLabel(Weather.askTemp(city.replace("\0", "")) + "°");
-//        }catch(Exception e){
-//            eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
-//            showMessage("Error retrieving temperature" + e.getMessage());
-//        }
+        JLabel eTemperature;
+        try{
+            eTemperature = new JLabel(Weather.askTemp(city.replace("\0", "")) + "°");
+        }catch(Exception e){
+            eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
+            showMessage("Error retrieving temperature" + e.getMessage());
+        }
 
         JLabel eInformation = new JLabel(c.getInformation().replace("\0", ""));
         JLabel icon = new JLabel();
