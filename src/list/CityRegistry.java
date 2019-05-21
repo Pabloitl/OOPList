@@ -92,7 +92,7 @@ public class CityRegistry extends City{
     public void update(RandomFile f, City c){
         long row = getRow(f);
         if(row < 0) Display.showMessage("row -");
-        System.out.println("row: " + row);
+        
         try{
             f.setSeek(row * DIM);
             new CityRegistry(c).write(f);

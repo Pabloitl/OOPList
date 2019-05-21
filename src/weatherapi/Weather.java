@@ -6,11 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONObject;
 
-/* Sensitive information !!!
- Info: list.opproject@gmail.com
- whatever1928
- */
-
 public class Weather{
     
     private static final String apiKey = "&APPID=ddbd11a9ccc6800fbe3bc970e5dcfe18";

@@ -97,11 +97,11 @@ public class Display {
         }while(!campos(city, country, continent, information,path));
         
         float temperatureAPI = 0;
-//        try {
-//            temperatureAPI = Weather.askTemp(city.getText());
-//        } catch (Exception ex) {
-//            temperatureAPI = 0;
-//        }
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
         
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -178,12 +178,13 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent, information, path));
         
-        float temperatureAPI = 0;
-//        try {
-//            temperatureAPI = Weather.askTemp(city.getText());
-//        } catch (Exception ex) {
-//            temperatureAPI = 0;
-//        }
+        float temperatureAPI;
+        
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
         
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -236,8 +237,10 @@ public class Display {
             eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
             showMessage("Error retrieving temperature" + e.getMessage());
         }
+
         JLabel eInformation = new JLabel(c.getInformation().replace("\0", ""));
         JLabel icon = new JLabel();
+        
         ImageIcon imag = new ImageIcon(new ImageIcon(c.getPath().replace("\0", ""))
                 .getImage().getScaledInstance(400, 390, Image.SCALE_SMOOTH));
         
@@ -272,6 +275,8 @@ public class Display {
         
         lInformation.setFont(new Font("AR JULIAN", Font.BOLD, 20));
         lInformation.setBounds(410, 290, 200, 20);
+        eInformation.setForeground(Color.orange);
+        eInformation.setBounds(420, 312, 100, 30);
         
         icon.setIcon(imag);
         icon.setBounds(0, 50, 400, 390);
