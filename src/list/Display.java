@@ -184,7 +184,7 @@ public class Display {
         } catch (Exception ex) {
             temperatureAPI = 0;
         }
-//        
+        
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
     }
@@ -213,8 +213,17 @@ public class Display {
         panel.add(icon);
         panel.setVisible(true);
         
-        return JOptionPane.showInputDialog(null, panel, "Ciudades por visitar", 
-                      JOptionPane.DEFAULT_OPTION, null, args, null).toString();
+        Object o = JOptionPane.showInputDialog(null, panel, "Ciudades por visitar", 
+                      JOptionPane.DEFAULT_OPTION, null, args, null);
+        
+        String result = null;
+        try{
+            result = o.toString();
+        }catch(Exception e){
+            System.exit(0);
+        }
+        
+        return result;
     }
     
     public static void showCity(City c){
