@@ -96,12 +96,12 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent, information,path));
         
-        float temperatureAPI;
-        try {
-            temperatureAPI = Weather.askTemp(city.getText());
-        } catch (Exception ex) {
-            temperatureAPI = 0;
-        }
+        float temperatureAPI = 0;
+//        try {
+//            temperatureAPI = Weather.askTemp(city.getText());
+//        } catch (Exception ex) {
+//            temperatureAPI = 0;
+//        }
         
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -178,12 +178,12 @@ public class Display {
                                         JOptionPane.DEFAULT_OPTION);
         }while(!campos(city, country, continent, information, path));
         
-        float temperatureAPI;
-        try {
-            temperatureAPI = Weather.askTemp(city.getText());
-        } catch (Exception ex) {
-            temperatureAPI = 0;
-        }
+        float temperatureAPI = 0;
+//        try {
+//            temperatureAPI = Weather.askTemp(city.getText());
+//        } catch (Exception ex) {
+//            temperatureAPI = 0;
+//        }
         
         return new City(city.getText(), country.getText(), continent.getText(), 
                         temperatureAPI, information.getText(), path.getText());
@@ -225,10 +225,10 @@ public class Display {
         JLabel lContinent = new JLabel("Continente");
         JLabel lTemperature = new JLabel("Temperatura");
         JLabel lInformation = new JLabel("Información");
-        String city = c.getName();
+        String city = c.getName().replace("\0", "");
         JLabel eCity  = new JLabel(city);
-        JLabel eCountry = new JLabel(c.getCountry());
-        JLabel eContinent = new JLabel(c.getContinent());
+        JLabel eCountry = new JLabel(c.getCountry().replace("\0", ""));
+        JLabel eContinent = new JLabel(c.getContinent().replace("\0", ""));
         JLabel eTemperature;
         try{
             eTemperature = new JLabel(Weather.askTemp(city.replace("\0", "")) + "°");
@@ -236,9 +236,9 @@ public class Display {
             eTemperature = new JLabel(String.valueOf(c.getTemperature()+"°"));
             showMessage("Error retrieving temperature" + e.getMessage());
         }
-        JLabel eInformation = new JLabel(c.getInformation());
+        JLabel eInformation = new JLabel(c.getInformation().replace("\0", ""));
         JLabel icon = new JLabel();
-        ImageIcon imag = new ImageIcon(new ImageIcon(c.getPath())
+        ImageIcon imag = new ImageIcon(new ImageIcon(c.getPath().replace("\0", ""))
                 .getImage().getScaledInstance(400, 390, Image.SCALE_SMOOTH));
         
         UIManager.put("OptionPane.minimumSize", new Dimension(600, 500));
