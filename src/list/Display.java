@@ -19,8 +19,8 @@ public class Display {
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Ciudades por visitar");
         JLabel icon  = new JLabel();
-        ImageIcon imag = new ImageIcon(new ImageIcon("src/data/montreal.jpg")
-                .getImage().getScaledInstance(480, 350, Image.SCALE_SMOOTH));
+        ImageIcon imag = new ImageIcon(new ImageIcon("src/data/toronto.jpg")
+                .getImage().getScaledInstance(480, 380, Image.SCALE_SMOOTH));
         String [] option = {"Añadir ciudad" , "Mostrar ciudad","Editar ciudad"};
         
         UIManager.put("OptionPane.minimumSize", new Dimension(500, 430));
@@ -29,7 +29,7 @@ public class Display {
         title.setBounds(20, 0, 500, 40);
         
         icon.setIcon(imag);
-        icon.setBounds(0, 60, 480, 350);
+        icon.setBounds(0, 60, 480, 380);
         
         panel.setLayout(null);
         panel.add(title);
@@ -48,13 +48,11 @@ public class Display {
         JTextField city = new JTextField();
         JTextField country = new JTextField();
         JTextField continent = new JTextField();
-        JTextField temperature = new JTextField();
         JTextField information = new JTextField();
         JTextField path = new JTextField();
         JLabel lCity  = new JLabel("Ciudad");
         JLabel lCountry = new JLabel("País");
         JLabel lContinent = new JLabel("Continente");
-        JLabel lTemperature = new JLabel("Temperatura");
         JLabel lInformation = new JLabel("Información");
         JLabel lPath = new JLabel("Ruta de imagen");
         JLabel icon = new JLabel();
@@ -67,16 +65,14 @@ public class Display {
         lCity.setBounds(210, 10, 80, 20);
         lCountry.setBounds(210, 40, 100, 20);
         lContinent.setBounds(210, 70, 100, 20);
-        lTemperature.setBounds(210, 100, 100, 20);
-        lInformation.setBounds(210, 130, 200, 20);
-        lPath.setBounds(210, 160, 200, 20);
+        lInformation.setBounds(210, 100, 100, 20);
+        lPath.setBounds(210, 130, 200, 20);
         
         city.setBounds(310, 10, 150, 20);
         country.setBounds(310, 40, 150, 20);
         continent.setBounds(310, 70, 150, 20);
-        temperature.setBounds(310, 100, 50, 20);
-        information.setBounds(310, 130, 250, 20);
-        path.setBounds(310, 160, 250, 20);
+        information.setBounds(310, 100, 50, 20);
+        path.setBounds(310, 130, 250, 20);
         
         icon.setIcon(imag);
         icon.setBounds(0, 0, 200, 230);
@@ -85,13 +81,11 @@ public class Display {
         panel.add(lCity);
         panel.add(lCountry);
         panel.add(lContinent);
-        panel.add(lTemperature);
         panel.add(lInformation);
         panel.add(lPath);
         panel.add(city);
         panel.add(country);
         panel.add(continent);
-        panel.add(temperature);
         panel.add(information);
         panel.add(path);
         panel.add(icon);
@@ -100,10 +94,17 @@ public class Display {
         do{
         JOptionPane.showMessageDialog(null, panel, "Registro de ciudad", 
                                         JOptionPane.DEFAULT_OPTION);
-        }while(!campos(city, country, continent, temperature,information,path));
+        }while(!campos(city, country, continent, information,path));
+        
+        float temperatureAPI;
+        try {
+            temperatureAPI = Weather.askTemp(city.getText());
+        } catch (Exception ex) {
+            temperatureAPI = 0;
+        }
+        
         return new City(city.getText(), country.getText(), continent.getText(), 
-                        Float.parseFloat(temperature.getText()), 
-                        information.getText(), path.getText());
+                        temperatureAPI, information.getText(), path.getText());
     }
     
     public static boolean campos(JTextField...args){
@@ -123,13 +124,11 @@ public class Display {
         JTextField city = new JTextField();
         JTextField country = new JTextField();
         JTextField continent = new JTextField();
-        JTextField temperature = new JTextField();
         JTextField information = new JTextField();
         JTextField path = new JTextField();
         JLabel lCity  = new JLabel("Ciudad");
         JLabel lCountry = new JLabel("País");
         JLabel lContinent = new JLabel("Continente");
-        JLabel lTemperature = new JLabel("Temperatura");
         JLabel lInformation = new JLabel("Información");
         JLabel lPath = new JLabel("Ruta de imagen");
         JLabel icon = new JLabel();
@@ -139,26 +138,23 @@ public class Display {
         
         UIManager.put("OptionPane.minimumSize", new Dimension(600, 250));
         
-        city.setText(c.getName());
-        country.setText(c.getCountry());
-        continent.setText(c.getContinent());
-        continent.setEditable(true);
-        information.setText(c.getInformation());
-        path.setText(c.getPath());
+        city.setText(c.getName().replace("\0", ""));
+        country.setText(c.getCountry().replace("\0", ""));
+        continent.setText(c.getContinent().replace("\0", ""));
+        information.setText(c.getInformation().replace("\0", ""));
+        path.setText(c.getPath().replace("\0", ""));
         
         lCity.setBounds(210, 10, 80, 20);
         lCountry.setBounds(210, 40, 100, 20);
         lContinent.setBounds(210, 70, 100, 20);
-        lTemperature.setBounds(210, 100, 100, 20);
-        lInformation.setBounds(210, 130, 200, 20);
-        lPath.setBounds(210, 160, 200, 20);
+        lInformation.setBounds(210, 100, 100, 20);
+        lPath.setBounds(210, 130, 200, 20);
         
         city.setBounds(310, 10, 150, 20);
         country.setBounds(310, 40, 150, 20);
         continent.setBounds(310, 70, 150, 20);
-        temperature.setBounds(310, 100, 50, 20);
-        information.setBounds(310, 130, 250, 20);
-        path.setBounds(310, 160, 250, 20);
+        information.setBounds(310, 100, 50, 20);
+        path.setBounds(310, 130, 250, 20);
         
         icon.setIcon(imag);
         icon.setBounds(0, 0, 200, 230);
@@ -167,13 +163,11 @@ public class Display {
         panel.add(lCity);
         panel.add(lCountry);
         panel.add(lContinent);
-        panel.add(lTemperature);
         panel.add(lInformation);
         panel.add(lPath);
         panel.add(city);
         panel.add(country);
         panel.add(continent);
-        panel.add(temperature);
         panel.add(information);
         panel.add(path);
         panel.add(icon);
@@ -182,7 +176,7 @@ public class Display {
         do{
         JOptionPane.showMessageDialog(null, panel, "Editar registro de ciudad", 
                                         JOptionPane.DEFAULT_OPTION);
-        }while(!campos(city, country, continent,information,path));
+        }while(!campos(city, country, continent, information, path));
         
         float temperatureAPI;
         try {
