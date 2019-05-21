@@ -119,7 +119,7 @@ public class CityRegistry extends City{
         ArrayList<String> buff = new ArrayList();
         
         try{
-            for(int i = 0; i * DIM < f.getLength(); i++){
+            for(int i = 0; i * DIM < f.getLength() - 1; i++){
                 buff.add(f.read(i * DIM, NAME_LENGTH));
             }
         }catch(Exception e){
