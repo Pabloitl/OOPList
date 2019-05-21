@@ -27,6 +27,7 @@ public class Menu {
                 //Edit
                 edit(askCity());
                 break;
+            default: System.exit(0);
         }
     }
     
