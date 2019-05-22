@@ -182,7 +182,7 @@ public class Display {
         try {
             temperatureAPI = Weather.askTemp(city.getText());
         } catch (Exception ex) {
-            temperatureAPI = 0;
+            temperatureAPI = c.getTemperature();
         }
         
         return new City(city.getText(), country.getText(), continent.getText(), 

@@ -12,11 +12,11 @@ public class Weather{
 
     public static float askTemp(String city) throws Exception{
 
-//        String
-//            apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=",
-//            units = "&units=metric";
+        String
+            apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=",
+            units = "&units=metric";
         
-        return 0;//parseTemp(sendGET(apiUrl + city + units + apiKey));
+        return parseTemp(sendGET(apiUrl + city + units + apiKey));
     }
     
     private static String sendGET(String request) throws Exception{
