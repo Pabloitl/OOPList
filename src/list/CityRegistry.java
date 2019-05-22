@@ -105,7 +105,7 @@ public class CityRegistry extends City{
         try{
             ArrayList<String> c = loadCities(f);
             for(int i = 0; i < c.size(); i++){
-                if(c.get(i).equals(name))
+                if(c.get(i).equals(name.replace("\0", "")))
                     return i;
             }
         }catch(Exception e){
@@ -120,7 +120,7 @@ public class CityRegistry extends City{
         
         try{
             for(int i = 0; i * DIM < f.getLength() - 1; i++){
-                buff.add(f.read(i * DIM, NAME_LENGTH));
+                buff.add(f.read(i * DIM, NAME_LENGTH).replace("\0", ""));
             }
         }catch(Exception e){
             showMessage(e.getMessage());
@@ -135,7 +135,7 @@ public class CityRegistry extends City{
             if(f.open(RandomFile.COUNTRIES)){
                 for(int i = 0; i * DIM < f.getLength(); i++){
                     read(f, i);
-                    if(this.name.equals(name))
+                    if(this.name.replace("\0", "").equals(name))
                         return;
                 }
             }
